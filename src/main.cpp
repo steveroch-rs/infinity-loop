@@ -1,27 +1,46 @@
-#define FASTLED_ALL_PINS_HARDWARE_SPI       // use hardware SPI instead of bit-banging
-#define FASTLED_ESP32_SPI_BUS HSPI          // strip is connected to HSPI bus
+/* This is the main file for my project infinity-loop.
+ * It uses FastLED to control a strip of addressable RGB LEDs using SPI.
+ *
+ * The microcontroller in use is an Espressif ESP32 with dual Xtensa L6 cores.
+ *
+ * While the default configuration runs the entire networking stack on core0
+ * and the loop() function on core1 this projects keeps using core0 for the network-stack as well as
+ * the webserver and uses pinned tasks on core1 for everything else (like the lighting control).
+ *
+ * The various effects of the strip can be changed via push-buttons on the back of the fixture,
+ * or via a web-app that is served from the ESP32 using ESPAsyncWebserver.
+ * To achieve easier readability and reducing clutter the HTML, CSS and JS are served from files
+ * located on an SPI flash filesystem using SPIFFS.
+ *
+ * LIBRARY DOC:
+ * https://github.com/FastLED/FastLED                                                   (FastLED)
+ * https://github.com/me-no-dev/ESPAsyncWebServer                                       (ESP Async WebServer)
+ *
+ * TUTORIALS:
+ * https://www.tutorialspoint.com/esp32_for_iot/esp32_for_iot_spiffs_storage.htm        (SPIFFS)
+ *
+ */
 
-#define NUM_LEDS 142        // amount of LEDs on the entire strip
-#define HSPI_CLK 14         // GPIO14 is hardware SPI clock for HSPI bus
-#define HSPI_MOSI 13        // GPIO13 is hardware SPI MOSI for HSPI bus
-#define RGB_ORDER BGR       // LEDs on strip might have different sub-pixel ordering
-
+// standard libraries
 #include <Arduino.h>
 #include <SPI.h>
-#include <FastLED.h>
+#include <SPIFFS.h>
+#include <WiFi.h>
 
-#include "infinity-loop/infinity-loop.h"              // header for strip control
+// project specific lighting libraries
+#include <FastLED.h>                                // easy-to-use control lib for addressable LEDs
+#include "infinity-loop/infinity-loop.h"            // header for strip control
+#include "effects.h"                                // custom defined effects for the strip
 
-CRGB leds[NUM_LEDS];                // reserve memory space for LED data
+// generate new global instance of InfinityLoop
+auto infinityloop = new InfinityLoop();
 
 void setup() {
     // setup code
 
-    // create
-    // BGR ordering is typical
-    FastLED.addLeds<APA102, HSPI_MOSI, HSPI_CLK>(leds, NUM_LEDS);
 }
 
 void loop() {
     // main program infinity-loop
+    infinityloop->apply(showColor(CRGB::Black));
 }

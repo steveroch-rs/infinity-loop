@@ -19,12 +19,27 @@
 #include <FastLED.h>
 
 class InfinityLoop {
-    // if new loop object is instantiated reserve memory for NUM_LED many LEDs on the strip
+private:
+    // container to hold color data for each pixel in the strip
     CRGB leds[NUM_LEDS]{};
 public:
+    // constrcutor
     InfinityLoop();
-    ~InfinityLoop();
-};
 
+    // destructor
+    ~InfinityLoop();
+
+    // effects without parameters
+    void apply(void (*effect)());
+
+    // effects that apply a color
+    void apply(void (*effect)(CRGB *, CRGB));
+
+    // effects that manipulate a random color (blinking, breathing, ...)
+    void apply(void (*effect)(CRGB *, float));
+
+    // effects that manipulate a specific color (blinking, breathing, ...)
+    void apply(void (*effect)(CRGB *, CRGB, float));
+};
 
 #endif //INFINITY_LOOP_INFINITY_LOOP_H
