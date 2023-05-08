@@ -42,7 +42,7 @@ void setup() {
 
 void loop() {
     // main program infinity-loop
-    int a = 23;
+    int a = 24;
     int b = 42;
     infinityloop->applytest(functoapply, a, b);
 }
