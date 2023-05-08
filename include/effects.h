@@ -43,7 +43,15 @@ void whiteSpiral(CRGB *strip, float time);
 // show a fire animation
 void fire(CRGB *strip);
 
-// show a christmassy animation with red, green and white color
+/**
+ * show a christmassy animation with red, green and white color
+ * @param strip: reference to the LEDs
+ */
 void christmas(CRGB *strip);
 
+
+void functoapply(int p0, int p1) {
+    Serial.println(p0);
+    Serial.println(p1);
+}
 #endif //INFINITY_LOOP_EFFECTS_H

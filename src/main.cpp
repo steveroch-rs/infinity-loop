@@ -42,5 +42,7 @@ void setup() {
 
 void loop() {
     // main program infinity-loop
-    infinityloop->apply(showColor(CRGB::Black));
+    int a = 23;
+    int b = 42;
+    infinityloop->applytest(functoapply, a, b);
 }

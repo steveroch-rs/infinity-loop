@@ -29,8 +29,11 @@ public:
     // destructor
     ~InfinityLoop();
 
+    // FIXME: remove
+    void applytest(void (*func)(int, int), int, int);
+
     // effects without parameters
-    void apply(void (*effect)());
+    void apply(void (*effect)(CRGB *));
 
     // effects that apply a color
     void apply(void (*effect)(CRGB *, CRGB));
@@ -40,6 +43,8 @@ public:
 
     // effects that manipulate a specific color (blinking, breathing, ...)
     void apply(void (*effect)(CRGB *, CRGB, float));
+
+    CRGB *getLeds();
 };
 
 #endif //INFINITY_LOOP_INFINITY_LOOP_H

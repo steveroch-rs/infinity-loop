@@ -3,6 +3,7 @@
 //
 
 #include "effects.h"
+#include "infinity-loop/infinity-loop.h"
 
 
 void showColor(CRGB *strip, CRGB color) {
@@ -18,7 +19,9 @@ void breatheColor(CRGB *strip, CRGB color, float time) {
 }
 
 void showRandom(CRGB *strip) {
-
+    for (int led = 0; led < NUM_LEDS; ++led) {
+        strip[led] = CRGB::Red;
+    }
 }
 
 void blinkRandom(CRGB *strip, float freq) {

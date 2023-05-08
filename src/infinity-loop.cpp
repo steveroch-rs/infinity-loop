@@ -24,21 +24,29 @@ InfinityLoop::~InfinityLoop() {
 }
 
 // apply an effect to the strip
-void InfinityLoop::apply(void (*effect)(CRGB *)) {
-    effect(leds);
+void InfinityLoop::apply(void (*effect)(CRGB *target)) {
+
 }
 
 // effects that apply a color
-void InfinityLoop::apply(void (*effect)(CRGB *, CRGB)) {
-
+void InfinityLoop::apply(void (*effect)(CRGB *target, CRGB color)) {
+    effect(this->leds, CRGB::Black);
 }
 
 // effects that manipulate a random color (blinking, breathing, ...)
-void InfinityLoop::apply(void (*effect)(CRGB *, float)) {
-
+void InfinityLoop::apply(void (*effect)(CRGB *target, float param)) {
+    effect(this->leds, 2.0);
 }
 
 // effects that manipulate a specific color (blinking, breathing, ...)
-void InfinityLoop::apply(void (*effect)(CRGB *, CRGB, float)) {
+void InfinityLoop::apply(void (*effect)(CRGB *target, CRGB color, float param)) {
 
+}
+
+CRGB *InfinityLoop::getLeds() {
+    return this->leds;
+}
+
+void InfinityLoop::applytest(void (*func)(int, int), int p0, int p1) {
+    func(p0, p1);
 }
